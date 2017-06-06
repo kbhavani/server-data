@@ -1,0 +1,124 @@
+package org.lauchcode.models.data;
+
+import org.lauchcode.models.*;
+
+import java.util.ArrayList;
+
+/**
+ * Created by karumuri on 5/8/2017.
+ */
+public class ServerData {
+
+    private static ArrayList<Server> servers = new ArrayList<>();
+    public static ServerData instance;
+
+    private ServerFieldData<Location> locations = new ServerFieldData<>();
+    private ServerFieldData<Team> teams = new ServerFieldData<>();
+    private ServerFieldData<Status> statuss = new ServerFieldData<>();
+
+    private ServerData() {
+        ServerDataImporter.loadData(this);
+    }
+
+    public static ServerData getInstance(){
+
+        if (instance == null){
+            instance = new ServerData();
+        }
+
+        return instance;
+    }
+
+    public Server findById(int id){
+        for (Server server : servers){
+            if(server.getId() == id)
+                return server;
+        }
+
+        return null;
+    }
+
+    public static Server getById(int id){
+
+        Server theServer=null;
+        for(Server candidateServer:servers){
+            if(candidateServer.getServerId()==id){
+                theServer=candidateServer;
+            }
+
+        }
+        return theServer;
+    }
+
+    public ArrayList<Server> findAll(){
+
+        return servers;
+    }
+
+    public ArrayList<Server> findByColumnAndValue(ServerFieldType column, String value) {
+
+        ArrayList<Server> matchingServers = new ArrayList<>();
+
+        for (Server server : servers) {
+            if (getFieldByType(server, column).contains(value))
+                matchingServers.add(server);
+        }
+
+        return matchingServers;
+    }
+
+    public ArrayList<Server> findByValue(String value) {
+
+        ArrayList<Server> matchingServers = new ArrayList<>();
+
+        for (Server server : servers) {
+
+            if (server.getName().toLowerCase().contains(value)) {
+                matchingServers.add(server);
+                continue;
+            }
+
+            for (ServerFieldType column : ServerFieldType.values()) {
+                if (column != ServerFieldType.ALL && getFieldByType(server, column).contains(value)) {
+                    matchingServers.add(server);
+                    break;
+                }
+            }
+        }
+
+        return matchingServers;
+    }
+
+
+    public void add(Server server) {
+        servers.add(server);
+    }
+
+
+    private static ServerField getFieldByType(Server server, ServerFieldType type) {
+        switch(type) {
+            case LOCATION:
+                return server.getLocation();
+            case TEAM:
+                return server.getTeam();
+            case STATUS:
+                return server.getStatus();
+        }
+
+        throw new IllegalArgumentException("Cannot get field of text " + type);
+    }
+
+    public ServerFieldData<Team> getTeams() {
+        return teams;
+    }
+
+    public ServerFieldData<Location> getLocations() {
+        return locations;
+    }
+
+    public ServerFieldData<Status> getStatuss() {
+        return statuss;
+    }
+
+
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+
+<div th:replace="fragments :: page-header"></div>
+
+<div class="container body-content">
+
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+
+    <div th:unless="${servers} and ${servers.size()}">
+        <h2>No Results</h2>
+    </div>
+
+    <div th:fragment="servers-list">
+        <div th:if="${servers} and ${servers.size()}">
+
+            <h3 th:text="${servers.size() + ' Result(s)'}"></h3>
+
+            <div  th:each="server : ${servers}">
+                <table  th:fragment="single-server" class="server-listing">
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${server.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <td th:text="${server.location}"></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td th:text="${server.status}"></td>
+                    </tr>
+                    <tr>
+                        <th>Team</th>
+                        <td th:text="${server.team}"></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
