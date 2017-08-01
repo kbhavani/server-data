@@ -69,7 +69,7 @@ public class ListController {
         model.addAttribute("title", "Servers with " + column.getName() + ": " + name);
         model.addAttribute("servers", servers);
 
-        return "list-severs";
+        return "list-servers";
     }
 
     @RequestMapping(value = "all")

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+
+<div th:replace="fragments :: page-header"></div>
+<div class="container body-content">
+
+    <form th:action="@{/edit/results}" th:object="${editForm}">
+
+    <div th:fragment="servers-list">
+        <div th:if="${servers} and ${servers.size()}">
+
+            <div  th:each="server : ${servers}">
+                <table  th:fragment="single-server" class="server-listing">
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${server.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <td><textarea th:text="${server.location}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td><textarea th:text="${server.status}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Team</th>
+                        <td><textarea th:text="${server.team}"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+
+            <a th:href="@{/edit/results/save}">Save</a>
+
+        </div>
+
+    </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -38,17 +38,6 @@ public class ServerData {
         return null;
     }
 
-    public static Server getById(int id){
-
-        Server theServer=null;
-        for(Server candidateServer:servers){
-            if(candidateServer.getServerId()==id){
-                theServer=candidateServer;
-            }
-
-        }
-        return theServer;
-    }
 
     public ArrayList<Server> findAll(){
 
@@ -92,6 +81,11 @@ public class ServerData {
 
     public void add(Server server) {
         servers.add(server);
+    }
+
+    public void edit(Server editServer)
+    {
+
     }
 
 
