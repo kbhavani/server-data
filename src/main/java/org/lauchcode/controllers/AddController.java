@@ -58,8 +58,4 @@ public class AddController {
         serverData.add(newServer);
         return "redirect:?id=" + newServer.getId();
     }
-
-
-
-
 }

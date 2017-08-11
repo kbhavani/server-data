@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<body>
+
+
+<div th:replace="fragments :: page-header"></div>
+
+<div class="container body-content">
+
+<form th:object="${editForm}" method="post">
+
+    <div class="form-group">
+        <label th:for="name">Name</label>
+        <input th:field="*{name}" />
+        <div th:errors="*{name}"></div>
+    </div>
+
+    <div class="form-group">
+        <label th:for="locationId">Location</label>
+        <select th:field="*{locationId}">
+            <option th:each="location : *{locations}"
+                    th:value="${location.id}"
+                    th:text="${location.value}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label th:for="statusId">Status</label>
+        <select th:field="*{statusId}">
+            <option th:each="status : *{statuss}"
+                    th:value="${status.id}"
+                    th:text="${status.value}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label th:for="teamId">Team</label>
+        <select th:field="*{teamId}">
+            <option th:each="team : *{teams}"
+                    th:value="${team.id}"
+                    th:text="${team.value}"></option>
+        </select>
+    </div>
+
+    <input type="submit" value="Edit Server" />
+</form>
+
+</div>
+
+</body>
+</html>
