@@ -34,6 +34,7 @@ public class ServerDataImporter {
             Resource resource = new ClassPathResource(DATA_FILE);
             InputStream is = resource.getInputStream();
             Reader reader = new InputStreamReader(is);
+
             CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(reader);
             List<CSVRecord> records = parser.getRecords();
             Integer numberOfColumns = records.get(0).size();
