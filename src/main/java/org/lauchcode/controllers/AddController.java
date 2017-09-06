@@ -1,6 +1,7 @@
 package org.lauchcode.controllers;
 
 import org.lauchcode.models.*;
+import org.lauchcode.models.data.EditServerData;
 import org.lauchcode.models.data.ServerData;
 import org.lauchcode.models.forms.EditForm;
 import org.lauchcode.models.forms.SearchForm;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 @RequestMapping(value = "server")
 public class AddController {
 
-    private ServerData serverData = ServerData.getInstance();
+    private ServerData serverData = ServerData.getInstance(false);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model, int id){
@@ -55,7 +56,10 @@ public class AddController {
                 serverData.getTeams().findById(serverForm.getTeamId())
         );
 
-        serverData.add(newServer);
+        //serverData.add(newServer);
+        EditServerData editServerData = new EditServerData();
+        editServerData.addData(newServer);
+
         return "redirect:?id=" + newServer.getId();
     }
 }

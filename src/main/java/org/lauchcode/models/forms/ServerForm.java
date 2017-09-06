@@ -39,7 +39,7 @@ public class ServerForm {
 
     public ServerForm(){
 
-        ServerData serverData = ServerData.getInstance();
+        ServerData serverData = ServerData.getInstance(false);
 
         locations = serverData.getLocations().findAll();
         statuss = serverData.getStatuss().findAll();

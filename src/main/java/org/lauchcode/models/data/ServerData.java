@@ -9,21 +9,27 @@ import java.util.ArrayList;
  */
 public class ServerData {
 
-    private static ArrayList<Server> servers = new ArrayList<>();
+    private ArrayList<Server> servers = new ArrayList<>();
     public static ServerData instance;
 
     private ServerFieldData<Location> locations = new ServerFieldData<>();
     private ServerFieldData<Team> teams = new ServerFieldData<>();
     private ServerFieldData<Status> statuss = new ServerFieldData<>();
 
-    private ServerData() {
-        ServerDataImporter.loadData(this);
+    private ServerData(boolean isReload)
+    {
+
+        ServerDataImporter.loadData(this,isReload);
     }
 
-    public static ServerData getInstance(){
+    public static ServerData getInstance(boolean isCreateInstance){
+        if(isCreateInstance){
+            instance = null;
+        }
 
         if (instance == null){
-            instance = new ServerData();
+
+            instance = new ServerData(isCreateInstance);
         }
 
         return instance;

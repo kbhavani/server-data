@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class ListController {
 
-    private ServerData serverData = ServerData.getInstance();
+    //private ServerData serverData = ServerData.getInstance();
 
     @RequestMapping(value = "")
     public String list(Model model){
@@ -37,7 +37,7 @@ public class ListController {
         if (column.equals(ServerFieldType.ALL)) {
             return "redirect:/list/all";
         }
-
+        ServerData serverData = ServerData.getInstance(true);
         ArrayList<? extends ServerField> items;
 
         switch(column) {
@@ -64,6 +64,7 @@ public class ListController {
     @RequestMapping(value = "servers")
     public String listServersByColumnAndValue(Model model,
                                               @RequestParam ServerFieldType column, @RequestParam String name){
+        ServerData serverData = ServerData.getInstance(true);
         ArrayList<Server> servers = serverData.findByColumnAndValue(column, name);
 
         model.addAttribute("title", "Servers with " + column.getName() + ": " + name);
@@ -75,6 +76,7 @@ public class ListController {
     @RequestMapping(value = "all")
     public String listAllServers(Model model) {
 
+        ServerData serverData = ServerData.getInstance(true);
         ArrayList<Server> servers = serverData.findAll();
 
         model.addAttribute("title", "All servers");

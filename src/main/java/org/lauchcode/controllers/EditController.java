@@ -27,7 +27,7 @@ public class EditController {
 
 
 
-    private ServerData serverData = ServerData.getInstance();
+    private ServerData serverData = ServerData.getInstance(false);
 
 
     @RequestMapping(value = "edit", method= RequestMethod.GET)
@@ -55,14 +55,14 @@ public class EditController {
        // Team team = new Team(Integer.toString(editForm.getTeamId()));
 
         Server editServer = new Server(editForm.getName(),
-                serverData.getLocations().findById(editForm.getLocationId()),
-                serverData.getStatuss().findById(editForm.getStatusId()),
-                serverData.getTeams().findById(editForm.getTeamId())
+                editForm.findByLocationId(editForm.getLocationId()),
+                editForm.findByStatusId(editForm.getStatusId()),
+                editForm.findByTeamId(editForm.getTeamId())
         );
 
         editServerData.editData(editServer);
 
 
-        return "redirect:?id=" + editServer.getId();
+        return "edit-save";
     }
 }

@@ -7,10 +7,7 @@ import org.lauchcode.models.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -20,22 +17,37 @@ public class ServerDataImporter {
 
     private static final String DATA_FILE = "server_data.csv";
     private static boolean isDataLoaded = false;
+    private static final String DATA_FILE_DIR = "C:/SourceFile";
     /**
      * Read in data from a CSV file and store it in a list
      */
-    static void loadData(ServerData serverData) {
+    static void loadData(ServerData serverData,boolean isReload) {
+
+        BufferedReader fileReader = null;
+        FileWriter fileWriter = null;
+        File dir = new File(DATA_FILE_DIR);
+        File[] csvFiles = dir.listFiles();
+        File sourceFile = null;
 
         // Only load data once
-        if (isDataLoaded) {
+        if (isDataLoaded && !isReload) {
             return;
         }
         try {
             // Open the CSV file and set up pull out column header info and records
-            Resource resource = new ClassPathResource(DATA_FILE);
-            InputStream is = resource.getInputStream();
-            Reader reader = new InputStreamReader(is);
 
-            CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(reader);
+            for(File csvFile :csvFiles){
+                if(csvFile.isFile() && csvFile.getName().equalsIgnoreCase(DATA_FILE)){
+                    sourceFile = csvFile;
+                    break;
+                }
+            }
+            fileReader = new BufferedReader(new FileReader(sourceFile));
+            //Resource resource = new ClassPathResource(DATA_FILE);
+            //InputStream is = resource.getInputStream();
+            //Reader reader = new InputStreamReader(is);
+
+            CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(fileReader);
             List<CSVRecord> records = parser.getRecords();
             Integer numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);

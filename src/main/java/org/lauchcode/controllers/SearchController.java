@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @RequestMapping("search")
 public class SearchController {
 
-    private ServerData serverData = ServerData.getInstance();
+    //private ServerData serverData = ServerData.getInstance();
 
     @RequestMapping(value = "")
     public String search(Model model) {
@@ -31,7 +31,7 @@ public class SearchController {
                          @ModelAttribute SearchForm searchForm) {
 
         ArrayList<Server> servers;
-
+        ServerData serverData = ServerData.getInstance(true);
         if (searchForm.getSearchField().equals(ServerFieldType.ALL)) {
             servers = serverData.findByValue(searchForm.getKeyword());
         } else {
