@@ -60,6 +60,7 @@ public class AddController {
         EditServerData editServerData = new EditServerData();
         editServerData.addData(newServer);
 
-        return "redirect:?id=" + newServer.getId();
+        //return "redirect:?id=" + newServer.getId();
+        return "add-save";
     }
 }
