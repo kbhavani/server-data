@@ -92,7 +92,9 @@ public class EditServerData {
             fileWriter.flush();
             fileWriter.close();
             fileReader.close();
+            System.out.println("before delete of old CSV file");
             sourceFile.delete();
+            System.out.println("Successfully deleted old CSV file");
             newFile.renameTo(new File(DATA_FILE_NEW));
             System.out.println("Successfully renamed new CSV file");
         } catch (Exception e) {

@@ -51,16 +51,19 @@ public class AddController {
         }
 
         Server newServer = new Server(serverForm.getName(),
-                serverData.getLocations().findById(serverForm.getLocationId()),
-                serverData.getStatuss().findById(serverForm.getStatusId()),
-                serverData.getTeams().findById(serverForm.getTeamId())
+                serverForm.findByLocationId(serverForm.getLocationId()),
+                serverForm.findByStatusId(serverForm.getStatusId()),
+                serverForm.findByTeamId(serverForm.getTeamId())
         );
+
+        System.out.println("print the location"+serverForm.getLocationId());
+        //System.out.println("print the data" + serverData.getLocations().);
 
         //serverData.add(newServer);
         EditServerData editServerData = new EditServerData();
         editServerData.addData(newServer);
 
         //return "redirect:?id=" + newServer.getId();
-        return "add-save";
+        return "add-save";/////////////
     }
 }

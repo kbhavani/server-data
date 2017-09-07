@@ -1,0 +1,10 @@
+name,location,status,team
+e100,1,2,7,e101,Florida,Production,Database Server
+e102,Florida,Development,Database Server
+e103,Stlouis,Development,Test Server
+e104,Stlouis,Build,Test Server
+e105,Kansas City,Production,Application Server
+e106,Kansas City,Build,Test Server
+e107,StLouis,Production,Application Server
+e108,StLouis,Production,Database Server
+e109,Kansas City,Development,Database Server

@@ -102,4 +102,31 @@ public class ServerForm {
     public void setTeams(ArrayList<Team> teams) {
         this.teams = teams;
     }
+
+    public Location findByLocationId(int id){
+        for (Location location : locations){
+            if(location.getId() == id)
+                return location;
+        }
+
+        return null;
+    }
+
+    public Status findByStatusId(int id){
+        for (Status status : statuss){
+            if(status.getId() == id)
+                return status;
+        }
+
+        return null;
+    }
+
+    public Team findByTeamId(int id){
+        for (Team team : teams){
+            if(team.getId() == id)
+                return team;
+        }
+
+        return null;
+    }
 }
